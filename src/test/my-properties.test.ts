@@ -1,0 +1,8 @@
+import { expect,it } from 'vitest';
+import { propertySections,propertyStatus,type PropertyRequest } from '@/lib/properties';
+const now=Date.parse('2026-11-24T08:00:00Z');
+const base:PropertyRequest={id:'1',property_id:'plot',floor:null,unit_number:null,plot_number:'SI4',status:'issued',kind:'new',expires_at:'2026-01-01',deleted_at:null,created_at:'2025-01-01'};
+it('keeps an expired property visible with an expired badge',()=>{const sections=propertySections([base],now);expect(sections.properties).toHaveLength(1);expect(sections.properties[0]?.status).toBe('expired');expect(sections.licenses).toHaveLength(1);});
+it('includes deleted historical properties without showing them as current requests',()=>{const sections=propertySections([{...base,status:'under_review',deleted_at:'2026-11-01'}],now);expect(sections.properties).toHaveLength(1);expect(sections.current).toHaveLength(0);});
+it('shows ACUD requests under review separately from issued licenses',()=>{const row={...base,status:'under_review'};expect(propertySections([row],now).current).toEqual([row]);expect(propertyStatus(row,now)).toBe('under_review');});
+it('groups repeated requests for the same unit without duplicating properties',()=>{const newer={...base,id:'2',created_at:'2026-11-01',expires_at:'2027-11-01'};const sections=propertySections([base,newer],now);expect(sections.properties).toHaveLength(1);expect(sections.properties[0]?.status).toBe('active');});

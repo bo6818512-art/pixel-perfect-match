@@ -1,0 +1,17 @@
+{
+  "source": "trail.zip",
+  "capabilities": [
+    {"capability":"code and design","source":"TanStack archive","outcome":"preserve","status":"in_progress","next_action":"Import safe application source with target framework versions"},
+    {"capability":"schema","source":"seven PostgreSQL migrations","outcome":"migrate","status":"in_progress","next_action":"Apply existing schema to Lovable Cloud"},
+    {"capability":"records","source":"not exported","outcome":"migrate","status":"pending","next_action":"Attach application CSV or JSON exports"},
+    {"capability":"auth identities","source":"not exported","outcome":"migrate","status":"pending","next_action":"Attach original IDs and emails; verify email ownership and password setup"},
+    {"capability":"authorization","source":"owner RLS and admin roles","outcome":"preserve","status":"in_progress","next_action":"Apply policies and verify isolation"},
+    {"capability":"uploaded file bytes","source":"not exported","outcome":"migrate","status":"pending","next_action":"Attach existing private documents and metadata"},
+    {"capability":"external providers and secrets","source":"Google Maps and Lovable AI","outcome":"preserve","status":"pending","next_action":"Verify configuration and safe calls"},
+    {"capability":"public endpoints","source":"licensing assistant","outcome":"preserve","status":"in_progress","next_action":"Preserve public assistant endpoint"},
+    {"capability":"callbacks and webhooks","source":"auth recovery; no payment implementation detected","outcome":"preserve","status":"pending","next_action":"Verify auth recovery"},
+    {"capability":"schedules","source":"daily database reminder function","outcome":"preserve","status":"pending","next_action":"Inspect and restore SQL schedule"},
+    {"capability":"cutover","source":"unpublished portal","outcome":"pending","status":"pending","next_action":"Publish only after data and user verification"},
+    {"capability":"verification","source":"source tests and live preview","outcome":"verify","status":"in_progress","next_action":"Run rule tests and signed-in flows"}
+  ]
+}

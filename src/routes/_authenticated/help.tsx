@@ -1,0 +1,5 @@
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { PortalFrame, portalHead } from '@/components/portal-frame';
+import { Button } from '@/components/ui/button';
+export const Route = createFileRoute('/_authenticated/help')({ head: () => portalHead('مساعدة البوابة', 'مساعدة حسابات المستخدمين والأسئلة والشكاوي في بوابة التراخيص.'), component: Page });
+function Page() { return <PortalFrame title="مساعدة البوابة"><div className="space-y-6"><h2 className="text-xl font-bold">الحساب وتسجيل الدخول</h2><p>تأكيد البريد الإلكتروني مطلوب بعد إنشاء الحساب. يمكنك مراجعة الأسئلة الشائعة أو إرسال سؤال أو شكوى.</p><div className="flex flex-wrap gap-3"><Button asChild variant="outline"><Link to="/faq">استفسارات والاسئلة الشائعة</Link></Button><Button asChild variant="outline"><Link to="/complaints">شكاوي</Link></Button></div></div></PortalFrame>; }

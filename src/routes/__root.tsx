@@ -1,3 +1,5 @@
+import { LanguageProvider } from "@/lib/i18n";
+import { useMatches as useImportedMatches } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -8,7 +10,11 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
+import type { User } from '@supabase/supabase-js';
+import { supabase } from '@/integrations/supabase/client';
+import { PortalAuthContext } from '@/components/portal-auth';
+import { PortalAssistantLauncher } from '@/components/portal-assistant-launcher';
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -75,17 +81,14 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
-    // Replace these placeholders with the app's name and description when first building the app.
-    // Each content route, / included, must still set its own head(). Never add og:image or
-    // twitter:image here: every page without its own would inherit the root's preview image.
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "بوابة التراخيص | العاصمة الإدارية ACUD" },
+      { name: "description", content: "بوابة تراخيص شركة العاصمة الإدارية للتنمية العمرانية" },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "بوابة التراخيص | العاصمة الإدارية ACUD" },
+      { property: "og:description", content: "بوابة تراخيص شركة العاصمة الإدارية للتنمية العمرانية" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
@@ -104,13 +107,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+declare module "@tanstack/react-router" {
+  interface StaticDataRouteOption {
+    importedDocument?: {
+      html?: import("react").HTMLAttributes<HTMLHtmlElement> & Record<`data-${string}`, string>;
+      body?: import("react").HTMLAttributes<HTMLBodyElement> & Record<`data-${string}`, string>;
+    };
+  }
+}
+
 function RootShell({ children }: { children: ReactNode }) {
+  const importedDocument = useImportedMatches({ select: matches => matches.at(-1)?.staticData.importedDocument });
   return (
-    <html lang="en">
+    <html lang="en" {...importedDocument?.html} suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var l=localStorage.getItem('portal-lang')==='ar'?'ar':'en';var d=document.documentElement;d.lang=l;d.dir=l==='ar'?'rtl':'ltr';d.classList.add('i18n-pending');setTimeout(function(){d.classList.remove('i18n-pending')},1500)}catch(e){}})()` }} />
+        <style>{"html.i18n-pending body{visibility:hidden}"}</style>
+        <style href="site-import-inline" precedence="imported-inline">{"@layer imported-inline;"}</style>
         <HeadContent />
       </head>
-      <body>
+      <body {...importedDocument?.body}>
         {children}
         <Scripts />
       </body>
@@ -120,11 +136,34 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  const [user, setUser] = useState<User | null>(null);
+  const [ready, setReady] = useState(false);
+  useEffect(() => router.subscribe('onResolved', () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }), [router]);
+  useEffect(() => {
+    let active = true;
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!active) return;
+      setUser(session?.user ?? null);
+      setReady(true);
+      if (event === 'PASSWORD_RECOVERY') sessionStorage.setItem('portal-password-recovery', 'true');
+      if (event === 'SIGNED_OUT') sessionStorage.removeItem('portal-password-recovery');
+      if (event !== 'SIGNED_IN' && event !== 'SIGNED_OUT' && event !== 'USER_UPDATED') return;
+      void router.invalidate();
+      if (event !== 'SIGNED_OUT') void queryClient.invalidateQueries();
+    });
+    void supabase.auth.getUser().then(({ data }) => { if (active) { setUser(data.user); setReady(true); } });
+    return () => { active = false; subscription.unsubscribe(); };
+  }, [queryClient, router]);
 
   return (
     <QueryClientProvider client={queryClient}>
+      <PortalAuthContext.Provider value={{ user, ready }}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <LanguageProvider><Outlet /><PortalAssistantLauncher /></LanguageProvider>
+      </PortalAuthContext.Provider>
     </QueryClientProvider>
   );
 }

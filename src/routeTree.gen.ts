@@ -10,33 +10,374 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ComplaintsRouteImport } from './routes/complaints'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SigninRouteImport } from './routes/signin'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as AuthenticatedCompanyRouteRouteImport } from './routes/_authenticated/_company/route'
+import { Route as AuthenticatedEnvironmentalLicenseRouteImport } from './routes/_authenticated/environmental-license'
+import { Route as AuthenticatedHelpRouteImport } from './routes/_authenticated/help'
+import { Route as AuthenticatedInquiryRouteImport } from './routes/_authenticated/inquiry'
+import { Route as AuthenticatedMyAmendLicenseRouteImport } from './routes/_authenticated/my.amend-license'
+import { Route as AuthenticatedMyDataRouteImport } from './routes/_authenticated/my.data'
+import { Route as AuthenticatedMyLicensesRouteImport } from './routes/_authenticated/my.licenses'
+import { Route as AuthenticatedMyNewRequestRouteImport } from './routes/_authenticated/my.new-request'
+import { Route as AuthenticatedMyPropertiesRouteImport } from './routes/_authenticated/my.properties'
+import { Route as AuthenticatedMyRenewLicenseRouteImport } from './routes/_authenticated/my.renew-license'
+import { Route as AuthenticatedMyRequestsRouteImport } from './routes/_authenticated/my.requests'
+import { Route as ApiPublicLicensingAssistantRouteImport } from './routes/api/public/licensing-assistant'
+import { Route as AuthenticatedCompanyAdminIndexRouteImport } from './routes/_authenticated/_company/admin.index'
+import { Route as AuthenticatedCompanyAdminAssistantRouteImport } from './routes/_authenticated/_company/admin.assistant'
+import { Route as AuthenticatedCompanyAdminCitizensRouteImport } from './routes/_authenticated/_company/admin.citizens'
+import { Route as AuthenticatedCompanyAdminSupportRouteImport } from './routes/_authenticated/_company/admin.support'
+import { Route as AuthenticatedCompanyAdminUsersRouteImport } from './routes/_authenticated/_company/admin.users'
+import { Route as AuthenticatedCompanyAdminRequestsIndexRouteImport } from './routes/_authenticated/_company/admin.requests.index'
+import { Route as AuthenticatedCompanyAdminRequestsIdRouteImport } from './routes/_authenticated/_company/admin.requests.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComplaintsRoute = ComplaintsRouteImport.update({
+  id: '/complaints',
+  path: '/complaints',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SigninRoute = SigninRouteImport.update({
+  id: '/signin',
+  path: '/signin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedCompanyRouteRoute =
+  AuthenticatedCompanyRouteRouteImport.update({
+    id: '/_company',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEnvironmentalLicenseRoute =
+  AuthenticatedEnvironmentalLicenseRouteImport.update({
+    id: '/environmental-license',
+    path: '/environmental-license',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedHelpRoute = AuthenticatedHelpRouteImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedInquiryRoute = AuthenticatedInquiryRouteImport.update({
+  id: '/inquiry',
+  path: '/inquiry',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMyAmendLicenseRoute =
+  AuthenticatedMyAmendLicenseRouteImport.update({
+    id: '/my/amend-license',
+    path: '/my/amend-license',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMyDataRoute = AuthenticatedMyDataRouteImport.update({
+  id: '/my/data',
+  path: '/my/data',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMyLicensesRoute = AuthenticatedMyLicensesRouteImport.update({
+  id: '/my/licenses',
+  path: '/my/licenses',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMyNewRequestRoute =
+  AuthenticatedMyNewRequestRouteImport.update({
+    id: '/my/new-request',
+    path: '/my/new-request',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMyPropertiesRoute =
+  AuthenticatedMyPropertiesRouteImport.update({
+    id: '/my/properties',
+    path: '/my/properties',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMyRenewLicenseRoute =
+  AuthenticatedMyRenewLicenseRouteImport.update({
+    id: '/my/renew-license',
+    path: '/my/renew-license',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMyRequestsRoute = AuthenticatedMyRequestsRouteImport.update({
+  id: '/my/requests',
+  path: '/my/requests',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const ApiPublicLicensingAssistantRoute =
+  ApiPublicLicensingAssistantRouteImport.update({
+    id: '/api/public/licensing-assistant',
+    path: '/api/public/licensing-assistant',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedCompanyAdminIndexRoute =
+  AuthenticatedCompanyAdminIndexRouteImport.update({
+    id: '/admin/',
+    path: '/admin/',
+    getParentRoute: () => AuthenticatedCompanyRouteRoute,
+  } as any)
+const AuthenticatedCompanyAdminAssistantRoute =
+  AuthenticatedCompanyAdminAssistantRouteImport.update({
+    id: '/admin/assistant',
+    path: '/admin/assistant',
+    getParentRoute: () => AuthenticatedCompanyRouteRoute,
+  } as any)
+const AuthenticatedCompanyAdminCitizensRoute =
+  AuthenticatedCompanyAdminCitizensRouteImport.update({
+    id: '/admin/citizens',
+    path: '/admin/citizens',
+    getParentRoute: () => AuthenticatedCompanyRouteRoute,
+  } as any)
+const AuthenticatedCompanyAdminSupportRoute =
+  AuthenticatedCompanyAdminSupportRouteImport.update({
+    id: '/admin/support',
+    path: '/admin/support',
+    getParentRoute: () => AuthenticatedCompanyRouteRoute,
+  } as any)
+const AuthenticatedCompanyAdminUsersRoute =
+  AuthenticatedCompanyAdminUsersRouteImport.update({
+    id: '/admin/users',
+    path: '/admin/users',
+    getParentRoute: () => AuthenticatedCompanyRouteRoute,
+  } as any)
+const AuthenticatedCompanyAdminRequestsIndexRoute =
+  AuthenticatedCompanyAdminRequestsIndexRouteImport.update({
+    id: '/admin/requests/',
+    path: '/admin/requests/',
+    getParentRoute: () => AuthenticatedCompanyRouteRoute,
+  } as any)
+const AuthenticatedCompanyAdminRequestsIdRoute =
+  AuthenticatedCompanyAdminRequestsIdRouteImport.update({
+    id: '/admin/requests/$id',
+    path: '/admin/requests/$id',
+    getParentRoute: () => AuthenticatedCompanyRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/complaints': typeof ComplaintsRoute
+  '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/signin': typeof SigninRoute
+  '/signup': typeof SignupRoute
+  '/environmental-license': typeof AuthenticatedEnvironmentalLicenseRoute
+  '/help': typeof AuthenticatedHelpRoute
+  '/inquiry': typeof AuthenticatedInquiryRoute
+  '/my/amend-license': typeof AuthenticatedMyAmendLicenseRoute
+  '/my/data': typeof AuthenticatedMyDataRoute
+  '/my/licenses': typeof AuthenticatedMyLicensesRoute
+  '/my/new-request': typeof AuthenticatedMyNewRequestRoute
+  '/my/properties': typeof AuthenticatedMyPropertiesRoute
+  '/my/renew-license': typeof AuthenticatedMyRenewLicenseRoute
+  '/my/requests': typeof AuthenticatedMyRequestsRoute
+  '/api/public/licensing-assistant': typeof ApiPublicLicensingAssistantRoute
+  '/admin/assistant': typeof AuthenticatedCompanyAdminAssistantRoute
+  '/admin/citizens': typeof AuthenticatedCompanyAdminCitizensRoute
+  '/admin/support': typeof AuthenticatedCompanyAdminSupportRoute
+  '/admin/users': typeof AuthenticatedCompanyAdminUsersRoute
+  '/admin/': typeof AuthenticatedCompanyAdminIndexRoute
+  '/admin/requests/$id': typeof AuthenticatedCompanyAdminRequestsIdRoute
+  '/admin/requests/': typeof AuthenticatedCompanyAdminRequestsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/complaints': typeof ComplaintsRoute
+  '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/signin': typeof SigninRoute
+  '/signup': typeof SignupRoute
+  '/environmental-license': typeof AuthenticatedEnvironmentalLicenseRoute
+  '/help': typeof AuthenticatedHelpRoute
+  '/inquiry': typeof AuthenticatedInquiryRoute
+  '/my/amend-license': typeof AuthenticatedMyAmendLicenseRoute
+  '/my/data': typeof AuthenticatedMyDataRoute
+  '/my/licenses': typeof AuthenticatedMyLicensesRoute
+  '/my/new-request': typeof AuthenticatedMyNewRequestRoute
+  '/my/properties': typeof AuthenticatedMyPropertiesRoute
+  '/my/renew-license': typeof AuthenticatedMyRenewLicenseRoute
+  '/my/requests': typeof AuthenticatedMyRequestsRoute
+  '/api/public/licensing-assistant': typeof ApiPublicLicensingAssistantRoute
+  '/admin/assistant': typeof AuthenticatedCompanyAdminAssistantRoute
+  '/admin/citizens': typeof AuthenticatedCompanyAdminCitizensRoute
+  '/admin/support': typeof AuthenticatedCompanyAdminSupportRoute
+  '/admin/users': typeof AuthenticatedCompanyAdminUsersRoute
+  '/admin': typeof AuthenticatedCompanyAdminIndexRoute
+  '/admin/requests/$id': typeof AuthenticatedCompanyAdminRequestsIdRoute
+  '/admin/requests': typeof AuthenticatedCompanyAdminRequestsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/complaints': typeof ComplaintsRoute
+  '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/signin': typeof SigninRoute
+  '/signup': typeof SignupRoute
+  '/_authenticated/_company': typeof AuthenticatedCompanyRouteRouteWithChildren
+  '/_authenticated/environmental-license': typeof AuthenticatedEnvironmentalLicenseRoute
+  '/_authenticated/help': typeof AuthenticatedHelpRoute
+  '/_authenticated/inquiry': typeof AuthenticatedInquiryRoute
+  '/_authenticated/my/amend-license': typeof AuthenticatedMyAmendLicenseRoute
+  '/_authenticated/my/data': typeof AuthenticatedMyDataRoute
+  '/_authenticated/my/licenses': typeof AuthenticatedMyLicensesRoute
+  '/_authenticated/my/new-request': typeof AuthenticatedMyNewRequestRoute
+  '/_authenticated/my/properties': typeof AuthenticatedMyPropertiesRoute
+  '/_authenticated/my/renew-license': typeof AuthenticatedMyRenewLicenseRoute
+  '/_authenticated/my/requests': typeof AuthenticatedMyRequestsRoute
+  '/api/public/licensing-assistant': typeof ApiPublicLicensingAssistantRoute
+  '/_authenticated/_company/admin/assistant': typeof AuthenticatedCompanyAdminAssistantRoute
+  '/_authenticated/_company/admin/citizens': typeof AuthenticatedCompanyAdminCitizensRoute
+  '/_authenticated/_company/admin/support': typeof AuthenticatedCompanyAdminSupportRoute
+  '/_authenticated/_company/admin/users': typeof AuthenticatedCompanyAdminUsersRoute
+  '/_authenticated/_company/admin/': typeof AuthenticatedCompanyAdminIndexRoute
+  '/_authenticated/_company/admin/requests/$id': typeof AuthenticatedCompanyAdminRequestsIdRoute
+  '/_authenticated/_company/admin/requests/': typeof AuthenticatedCompanyAdminRequestsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/complaints'
+    | '/contact'
+    | '/faq'
+    | '/reset-password'
+    | '/signin'
+    | '/signup'
+    | '/environmental-license'
+    | '/help'
+    | '/inquiry'
+    | '/my/amend-license'
+    | '/my/data'
+    | '/my/licenses'
+    | '/my/new-request'
+    | '/my/properties'
+    | '/my/renew-license'
+    | '/my/requests'
+    | '/api/public/licensing-assistant'
+    | '/admin/assistant'
+    | '/admin/citizens'
+    | '/admin/support'
+    | '/admin/users'
+    | '/admin/'
+    | '/admin/requests/$id'
+    | '/admin/requests/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/complaints'
+    | '/contact'
+    | '/faq'
+    | '/reset-password'
+    | '/signin'
+    | '/signup'
+    | '/environmental-license'
+    | '/help'
+    | '/inquiry'
+    | '/my/amend-license'
+    | '/my/data'
+    | '/my/licenses'
+    | '/my/new-request'
+    | '/my/properties'
+    | '/my/renew-license'
+    | '/my/requests'
+    | '/api/public/licensing-assistant'
+    | '/admin/assistant'
+    | '/admin/citizens'
+    | '/admin/support'
+    | '/admin/users'
+    | '/admin'
+    | '/admin/requests/$id'
+    | '/admin/requests'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/complaints'
+    | '/contact'
+    | '/faq'
+    | '/reset-password'
+    | '/signin'
+    | '/signup'
+    | '/_authenticated/_company'
+    | '/_authenticated/environmental-license'
+    | '/_authenticated/help'
+    | '/_authenticated/inquiry'
+    | '/_authenticated/my/amend-license'
+    | '/_authenticated/my/data'
+    | '/_authenticated/my/licenses'
+    | '/_authenticated/my/new-request'
+    | '/_authenticated/my/properties'
+    | '/_authenticated/my/renew-license'
+    | '/_authenticated/my/requests'
+    | '/api/public/licensing-assistant'
+    | '/_authenticated/_company/admin/assistant'
+    | '/_authenticated/_company/admin/citizens'
+    | '/_authenticated/_company/admin/support'
+    | '/_authenticated/_company/admin/users'
+    | '/_authenticated/_company/admin/'
+    | '/_authenticated/_company/admin/requests/$id'
+    | '/_authenticated/_company/admin/requests/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  ComplaintsRoute: typeof ComplaintsRoute
+  ContactRoute: typeof ContactRoute
+  FaqRoute: typeof FaqRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  SigninRoute: typeof SigninRoute
+  SignupRoute: typeof SignupRoute
+  ApiPublicLicensingAssistantRoute: typeof ApiPublicLicensingAssistantRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +389,272 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/complaints': {
+      id: '/complaints'
+      path: '/complaints'
+      fullPath: '/complaints'
+      preLoaderRoute: typeof ComplaintsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signin': {
+      id: '/signin'
+      path: '/signin'
+      fullPath: '/signin'
+      preLoaderRoute: typeof SigninRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/_company': {
+      id: '/_authenticated/_company'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedCompanyRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/environmental-license': {
+      id: '/_authenticated/environmental-license'
+      path: '/environmental-license'
+      fullPath: '/environmental-license'
+      preLoaderRoute: typeof AuthenticatedEnvironmentalLicenseRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/help': {
+      id: '/_authenticated/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof AuthenticatedHelpRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/inquiry': {
+      id: '/_authenticated/inquiry'
+      path: '/inquiry'
+      fullPath: '/inquiry'
+      preLoaderRoute: typeof AuthenticatedInquiryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/my/amend-license': {
+      id: '/_authenticated/my/amend-license'
+      path: '/my/amend-license'
+      fullPath: '/my/amend-license'
+      preLoaderRoute: typeof AuthenticatedMyAmendLicenseRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/my/data': {
+      id: '/_authenticated/my/data'
+      path: '/my/data'
+      fullPath: '/my/data'
+      preLoaderRoute: typeof AuthenticatedMyDataRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/my/licenses': {
+      id: '/_authenticated/my/licenses'
+      path: '/my/licenses'
+      fullPath: '/my/licenses'
+      preLoaderRoute: typeof AuthenticatedMyLicensesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/my/new-request': {
+      id: '/_authenticated/my/new-request'
+      path: '/my/new-request'
+      fullPath: '/my/new-request'
+      preLoaderRoute: typeof AuthenticatedMyNewRequestRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/my/properties': {
+      id: '/_authenticated/my/properties'
+      path: '/my/properties'
+      fullPath: '/my/properties'
+      preLoaderRoute: typeof AuthenticatedMyPropertiesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/my/renew-license': {
+      id: '/_authenticated/my/renew-license'
+      path: '/my/renew-license'
+      fullPath: '/my/renew-license'
+      preLoaderRoute: typeof AuthenticatedMyRenewLicenseRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/my/requests': {
+      id: '/_authenticated/my/requests'
+      path: '/my/requests'
+      fullPath: '/my/requests'
+      preLoaderRoute: typeof AuthenticatedMyRequestsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/public/licensing-assistant': {
+      id: '/api/public/licensing-assistant'
+      path: '/api/public/licensing-assistant'
+      fullPath: '/api/public/licensing-assistant'
+      preLoaderRoute: typeof ApiPublicLicensingAssistantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/_company/admin/': {
+      id: '/_authenticated/_company/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedCompanyAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedCompanyRouteRoute
+    }
+    '/_authenticated/_company/admin/assistant': {
+      id: '/_authenticated/_company/admin/assistant'
+      path: '/admin/assistant'
+      fullPath: '/admin/assistant'
+      preLoaderRoute: typeof AuthenticatedCompanyAdminAssistantRouteImport
+      parentRoute: typeof AuthenticatedCompanyRouteRoute
+    }
+    '/_authenticated/_company/admin/citizens': {
+      id: '/_authenticated/_company/admin/citizens'
+      path: '/admin/citizens'
+      fullPath: '/admin/citizens'
+      preLoaderRoute: typeof AuthenticatedCompanyAdminCitizensRouteImport
+      parentRoute: typeof AuthenticatedCompanyRouteRoute
+    }
+    '/_authenticated/_company/admin/support': {
+      id: '/_authenticated/_company/admin/support'
+      path: '/admin/support'
+      fullPath: '/admin/support'
+      preLoaderRoute: typeof AuthenticatedCompanyAdminSupportRouteImport
+      parentRoute: typeof AuthenticatedCompanyRouteRoute
+    }
+    '/_authenticated/_company/admin/users': {
+      id: '/_authenticated/_company/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedCompanyAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedCompanyRouteRoute
+    }
+    '/_authenticated/_company/admin/requests/': {
+      id: '/_authenticated/_company/admin/requests/'
+      path: '/admin/requests'
+      fullPath: '/admin/requests/'
+      preLoaderRoute: typeof AuthenticatedCompanyAdminRequestsIndexRouteImport
+      parentRoute: typeof AuthenticatedCompanyRouteRoute
+    }
+    '/_authenticated/_company/admin/requests/$id': {
+      id: '/_authenticated/_company/admin/requests/$id'
+      path: '/admin/requests/$id'
+      fullPath: '/admin/requests/$id'
+      preLoaderRoute: typeof AuthenticatedCompanyAdminRequestsIdRouteImport
+      parentRoute: typeof AuthenticatedCompanyRouteRoute
+    }
   }
 }
 
+interface AuthenticatedCompanyRouteRouteChildren {
+  AuthenticatedCompanyAdminAssistantRoute: typeof AuthenticatedCompanyAdminAssistantRoute
+  AuthenticatedCompanyAdminCitizensRoute: typeof AuthenticatedCompanyAdminCitizensRoute
+  AuthenticatedCompanyAdminSupportRoute: typeof AuthenticatedCompanyAdminSupportRoute
+  AuthenticatedCompanyAdminUsersRoute: typeof AuthenticatedCompanyAdminUsersRoute
+  AuthenticatedCompanyAdminIndexRoute: typeof AuthenticatedCompanyAdminIndexRoute
+  AuthenticatedCompanyAdminRequestsIdRoute: typeof AuthenticatedCompanyAdminRequestsIdRoute
+  AuthenticatedCompanyAdminRequestsIndexRoute: typeof AuthenticatedCompanyAdminRequestsIndexRoute
+}
+
+const AuthenticatedCompanyRouteRouteChildren: AuthenticatedCompanyRouteRouteChildren =
+  {
+    AuthenticatedCompanyAdminAssistantRoute:
+      AuthenticatedCompanyAdminAssistantRoute,
+    AuthenticatedCompanyAdminCitizensRoute:
+      AuthenticatedCompanyAdminCitizensRoute,
+    AuthenticatedCompanyAdminSupportRoute:
+      AuthenticatedCompanyAdminSupportRoute,
+    AuthenticatedCompanyAdminUsersRoute: AuthenticatedCompanyAdminUsersRoute,
+    AuthenticatedCompanyAdminIndexRoute: AuthenticatedCompanyAdminIndexRoute,
+    AuthenticatedCompanyAdminRequestsIdRoute:
+      AuthenticatedCompanyAdminRequestsIdRoute,
+    AuthenticatedCompanyAdminRequestsIndexRoute:
+      AuthenticatedCompanyAdminRequestsIndexRoute,
+  }
+
+const AuthenticatedCompanyRouteRouteWithChildren =
+  AuthenticatedCompanyRouteRoute._addFileChildren(
+    AuthenticatedCompanyRouteRouteChildren,
+  )
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedCompanyRouteRoute: typeof AuthenticatedCompanyRouteRouteWithChildren
+  AuthenticatedEnvironmentalLicenseRoute: typeof AuthenticatedEnvironmentalLicenseRoute
+  AuthenticatedHelpRoute: typeof AuthenticatedHelpRoute
+  AuthenticatedInquiryRoute: typeof AuthenticatedInquiryRoute
+  AuthenticatedMyAmendLicenseRoute: typeof AuthenticatedMyAmendLicenseRoute
+  AuthenticatedMyDataRoute: typeof AuthenticatedMyDataRoute
+  AuthenticatedMyLicensesRoute: typeof AuthenticatedMyLicensesRoute
+  AuthenticatedMyNewRequestRoute: typeof AuthenticatedMyNewRequestRoute
+  AuthenticatedMyPropertiesRoute: typeof AuthenticatedMyPropertiesRoute
+  AuthenticatedMyRenewLicenseRoute: typeof AuthenticatedMyRenewLicenseRoute
+  AuthenticatedMyRequestsRoute: typeof AuthenticatedMyRequestsRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedCompanyRouteRoute: AuthenticatedCompanyRouteRouteWithChildren,
+  AuthenticatedEnvironmentalLicenseRoute:
+    AuthenticatedEnvironmentalLicenseRoute,
+  AuthenticatedHelpRoute: AuthenticatedHelpRoute,
+  AuthenticatedInquiryRoute: AuthenticatedInquiryRoute,
+  AuthenticatedMyAmendLicenseRoute: AuthenticatedMyAmendLicenseRoute,
+  AuthenticatedMyDataRoute: AuthenticatedMyDataRoute,
+  AuthenticatedMyLicensesRoute: AuthenticatedMyLicensesRoute,
+  AuthenticatedMyNewRequestRoute: AuthenticatedMyNewRequestRoute,
+  AuthenticatedMyPropertiesRoute: AuthenticatedMyPropertiesRoute,
+  AuthenticatedMyRenewLicenseRoute: AuthenticatedMyRenewLicenseRoute,
+  AuthenticatedMyRequestsRoute: AuthenticatedMyRequestsRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
+  ComplaintsRoute: ComplaintsRoute,
+  ContactRoute: ContactRoute,
+  FaqRoute: FaqRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  SigninRoute: SigninRoute,
+  SignupRoute: SignupRoute,
+  ApiPublicLicensingAssistantRoute: ApiPublicLicensingAssistantRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

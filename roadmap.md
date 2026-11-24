@@ -1,0 +1,12 @@
+# Requested portal updates
+- [ ] Restore supplied portal without redesign; migrate existing schema.
+- [ ] Task 1: verify immutable database-generated temporary ACUD IDs.
+- [ ] Task 2: block duplicate active/in-progress plots; allow expired renewal.
+- [ ] Task 3: My Data, private documents and contact-only editing.
+- [ ] Task 4: My Properties from existing request records.
+- [ ] Task 5: retain Request Review and redirect Inquiry.
+- [ ] Task 6: confirm document numbering before activating 7/12 mapping.
+- [ ] Task 7: single synchronized map/code selection using uploaded GeoJSON.
+- [ ] Place the supplied SI4 GeoJSON in the Government District (GOV2), as confirmed by the user.
+- [ ] Verify tests, signed-in submission/read-back and mobile layout.
+- [ ] Existing users/records/files import (blocked: exports not supplied).

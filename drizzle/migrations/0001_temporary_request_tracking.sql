@@ -1,0 +1,13 @@
+CREATE SEQUENCE public.license_tracking_counter;
+CREATE FUNCTION public.next_license_tracking_id() RETURNS text LANGUAGE sql VOLATILE SECURITY DEFINER SET search_path=public AS $$ SELECT 'ACUD_'||CASE WHEN length(n::text)<4 THEN lpad(n::text,4,'0') ELSE n::text END FROM(SELECT nextval('public.license_tracking_counter') n)s $$;
+REVOKE ALL ON FUNCTION public.next_license_tracking_id() FROM PUBLIC,anon,authenticated;GRANT EXECUTE ON FUNCTION public.next_license_tracking_id() TO service_role;
+ALTER TABLE public.license_requests ADD COLUMN tracking_id text NOT NULL DEFAULT '',ADD COLUMN temp_track_id text NOT NULL DEFAULT '',ADD COLUMN license_number text;
+UPDATE public.license_requests SET tracking_id=public.next_license_tracking_id();UPDATE public.license_requests SET temp_track_id=tracking_id;
+CREATE UNIQUE INDEX license_requests_tracking_unique ON public.license_requests(tracking_id);CREATE UNIQUE INDEX license_requests_temp_track_unique ON public.license_requests(temp_track_id);
+CREATE FUNCTION public.protect_license_tracking_id() RETURNS trigger LANGUAGE plpgsql SECURITY DEFINER SET search_path=public AS $$ BEGIN IF TG_OP='INSERT' THEN NEW.temp_track_id:=public.next_license_tracking_id();NEW.tracking_id:=NEW.temp_track_id;NEW.license_number:=NULL;ELSIF NEW.temp_track_id IS DISTINCT FROM OLD.temp_track_id OR NEW.tracking_id IS DISTINCT FROM OLD.tracking_id THEN RAISE EXCEPTION 'Tracking number is read-only';END IF;RETURN NEW;END $$;
+CREATE TRIGGER license_tracking_readonly BEFORE INSERT OR UPDATE ON public.license_requests FOR EACH ROW EXECUTE FUNCTION public.protect_license_tracking_id();
+COMMENT ON COLUMN public.license_requests.tracking_id IS 'Compatibility alias of immutable temp_track_id; official number is license_number.';
+CREATE TABLE public.licensing_plots(id uuid PRIMARY KEY DEFAULT gen_random_uuid(),code text NOT NULL UNIQUE,district text NOT NULL,has_units boolean NOT NULL DEFAULT false,latitude double precision,longitude double precision,enabled boolean NOT NULL DEFAULT true,CONSTRAINT valid_plot_code CHECK(length(trim(code)) BETWEEN 1 AND 120),CONSTRAINT valid_plot_coordinates CHECK((latitude IS NULL AND longitude IS NULL) OR(latitude IS NOT NULL AND longitude IS NOT NULL AND latitude BETWEEN -90 AND 90 AND longitude BETWEEN -180 AND 180)));
+GRANT SELECT ON public.licensing_plots TO authenticated;GRANT ALL ON public.licensing_plots TO service_role;
+ALTER TABLE public.licensing_plots ENABLE ROW LEVEL SECURITY;CREATE POLICY approved_plot_read ON public.licensing_plots FOR SELECT TO authenticated USING(enabled);
+ALTER TABLE public.license_requests ADD COLUMN property_id uuid REFERENCES public.licensing_plots(id),ADD COLUMN unit_id text,ADD COLUMN floor text,ADD COLUMN unit_number text;

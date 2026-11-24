@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1795507448096,
+      "tag": "0000_restore_portal_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795507511714,
+      "tag": "0001_temporary_request_tracking",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795507576517,
+      "tag": "0002_prevent_duplicate_plot_licensing",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1795507659788,
+      "tag": "0003_account_data_and_document_catalog",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1795507781356,
+      "tag": "0004_restore_review_payment_and_notifications",
+      "breakpoints": true
+    }
+  ]
+}
